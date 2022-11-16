@@ -24,7 +24,7 @@ def screenshot_and_uploadtoS3(machine_name, s3_ak, s3_sk, s3_bucket):
 
         # Upload the file
         try:
-            response = s3_client.upload_file(filename, s3_bucket, s3filename)
+            response = s3_client.upload_file(filename, s3_bucket, s3filename,ExtraArgs={ "ContentType": "image/jpeg"})
             print(f"{filename}upload s3 successfully")
             os.remove(filename)
             time.sleep(60)
