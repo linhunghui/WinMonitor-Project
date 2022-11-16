@@ -6,9 +6,9 @@ import RegisterComponent from "./components/register-component.js";
 import LoginComponent from "./components/login-component.js";
 import ProfileComponent from "./components/profile-component.js";
 import AuthService from "./services/auth.service.js";
-import CourseComponent from "./components/course-component.js";
-import PostCourseComponent from "./components/postCourse-component.js";
-import EnrollComponent from "./components/enroll-component.js";
+import MonitorComponent from "./components/monitor-component.js";
+import PostMachineComponent from "./components/postMachine-component.js";
+import "./styles/style.css";
 
 const App = () => {
   let [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
@@ -21,7 +21,15 @@ const App = () => {
       <NavComponent currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <Routes>
         <Route path="/" element={<HomeComponent />} />
-        <Route path="/register" element={<RegisterComponent />} />
+        <Route
+          path="/register"
+          element={
+            <RegisterComponent
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            />
+          }
+        />
         {/* login 要有currentUser跟setCurrentUser是因為我們一登入後就要馬上改變nav */}
         <Route
           path="/login"
@@ -42,27 +50,18 @@ const App = () => {
           }
         />
         <Route
-          path="/course"
+          path="/monitor"
           element={
-            <CourseComponent
+            <MonitorComponent
               currentUser={currentUser}
               setCurrentUser={setCurrentUser}
             />
           }
         />
         <Route
-          path="/postCourse"
+          path="/postMachine"
           element={
-            <PostCourseComponent
-              currentUser={currentUser}
-              setCurrentUser={setCurrentUser}
-            />
-          }
-        />
-        <Route
-          path="/enroll"
-          element={
-            <EnrollComponent
+            <PostMachineComponent
               currentUser={currentUser}
               setCurrentUser={setCurrentUser}
             />

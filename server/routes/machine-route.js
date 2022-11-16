@@ -5,10 +5,25 @@ import express from "express";
 const router = express.Router();
 import { machineValidation } from "../validation.js";
 import { Machine } from "../models/index.js";
+import { NacosNamingClient } from "nacos";
 
 router.use((req, res, next) => {
   console.log("A request is comming into api");
   next();
+});
+
+//nacos設定
+//如上套件規定
+const logger = console;
+// nacos服务地址
+const nacosServerAddress = "52.197.215.123:8848";
+// namespace: 命名空间必须在服务器上存在
+const providerNamespace = "public";
+//配置連線資訊，要連到nacos當中Namespace叫public的地方
+const Nacosclient = new NacosNamingClient({
+  logger,
+  serverList: nacosServerAddress,
+  namespace: providerNamespace,
 });
 
 //獲得所有機器資訓
@@ -159,6 +174,19 @@ router.get("/findAllMachinegroup", (req, res) => {
     .catch((err) => {
       console.log(err);
     });
+});
+
+//找nacos有服務的機器
+router.get("/findNacos/:serviceName", async (req, res) => {
+  let { serviceName } = req.params;
+  //要實時監看的話把false改成true
+  let allInstances = await Nacosclient.getAllInstances(
+    serviceName,
+    "DEFAULT_GROUP",
+    "DEFAULT",
+    false
+  );
+  res.send(allInstances);
 });
 
 export default router;

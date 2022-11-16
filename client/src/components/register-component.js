@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../services/auth.service";
 
-function RegisterComponent() {
+function RegisterComponent(props) {
+  let { currentUser, setCurrentUser } = props;
   //useHistory用來重新導向
   const navigate = useNavigate();
   let [username, setUsername] = useState("");
@@ -10,7 +11,9 @@ function RegisterComponent() {
   let [password, setPassword] = useState("");
   let [role, setRole] = useState("");
   let [message, setMessage] = useState("");
-
+  const handleTakeLogin = () => {
+    navigate("/login");
+  };
   //eventlistener
   const handleChangeUsername = (e) => {
     setUsername(e.target.value);
@@ -43,55 +46,71 @@ function RegisterComponent() {
 
   return (
     <div style={{ padding: "3rem" }} className="col-md-12">
+      {/* 沒登入的話 */}
+      {!currentUser && (
+        <div>
+          <p>You must login first</p>
+          <button onClick={handleTakeLogin} className="btn btn-primary btn-lg">
+            Take me to login page.
+          </button>
+        </div>
+      )}
       {/* error message假如message是空false的話就不會執行 */}
       <div>
         {message && <div className="alert alert-danger">{message}</div>}
       </div>
-      <div>
+      {currentUser && currentUser.user.role !== "admin" && (
         <div>
-          <label htmlFor="username">Username</label>
-          <input
-            onChange={handleChangeUsername}
-            type="text"
-            className="form-control"
-            name="username"
-          />
+          <div className="alert alert-danger">Only admin can add new user.</div>
         </div>
-        <br />
-        <div className="form-group">
-          <label htmlFor="email">email</label>
-          <input
-            onChange={handleChangeEmail}
-            type="text"
-            className="form-control"
-            name="email"
-          />
+      )}
+      {currentUser && currentUser.user.role == "admin" && (
+        <div>
+          <div>
+            <label htmlFor="username">Username</label>
+            <input
+              onChange={handleChangeUsername}
+              type="text"
+              className="form-control"
+              name="username"
+            />
+          </div>
+          <br />
+          <div className="form-group">
+            <label htmlFor="email">email</label>
+            <input
+              onChange={handleChangeEmail}
+              type="text"
+              className="form-control"
+              name="email"
+            />
+          </div>
+          <br />
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              onChange={handleChangePassword}
+              type="password"
+              className="form-control"
+              name="password"
+            />
+          </div>
+          <br />
+          <div className="form-group">
+            <label htmlFor="password">role</label>
+            <input
+              onChange={handleChangeRole}
+              type="text"
+              className="form-control"
+              name="role"
+            />
+          </div>
+          <br />
+          <button onClick={handleRegister} className="btn btn-primary">
+            <span>Register</span>
+          </button>
         </div>
-        <br />
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            onChange={handleChangePassword}
-            type="password"
-            className="form-control"
-            name="password"
-          />
-        </div>
-        <br />
-        <div className="form-group">
-          <label htmlFor="password">role</label>
-          <input
-            onChange={handleChangeRole}
-            type="text"
-            className="form-control"
-            name="role"
-          />
-        </div>
-        <br />
-        <button onClick={handleRegister} className="btn btn-primary">
-          <span>Register</span>
-        </button>
-      </div>
+      )}
     </div>
   );
 }

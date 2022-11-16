@@ -23,7 +23,7 @@ function NavComponent(props) {
                     Home
                   </Link>
                 </li>
-                {!currentUser && (
+                {currentUser && currentUser.user.role == "admin" && (
                   <li className="nav-item">
                     <Link className="nav-link" to="/register">
                       Register
@@ -39,13 +39,6 @@ function NavComponent(props) {
                 )}
                 {currentUser && (
                   <li className="nav-item">
-                    <Link onClick={handleLogout} className="nav-link" to="/">
-                      Logout
-                    </Link>
-                  </li>
-                )}
-                {currentUser && (
-                  <li className="nav-item">
                     <Link className="nav-link" to="/profile">
                       Profile
                     </Link>
@@ -53,22 +46,22 @@ function NavComponent(props) {
                 )}
                 {currentUser && (
                   <li className="nav-item">
-                    <Link className="nav-link" to="/course">
-                      Course
+                    <Link className="nav-link" to="/monitor">
+                      Monitor
                     </Link>
                   </li>
                 )}
-                {currentUser && currentUser.user.role == "instructor" && (
+                {currentUser && currentUser.user.role == "admin" && (
                   <li className="nav-item">
-                    <Link className="nav-link" to="/postCourse">
-                      Post Course
+                    <Link className="nav-link" to="/postMachine">
+                      Add Machine
                     </Link>
                   </li>
                 )}
-                {currentUser && currentUser.user.role == "student" && (
+                {currentUser && (
                   <li className="nav-item">
-                    <Link className="nav-link" to="/enroll">
-                      Enroll
+                    <Link onClick={handleLogout} className="nav-link" to="/">
+                      Logout
                     </Link>
                   </li>
                 )}

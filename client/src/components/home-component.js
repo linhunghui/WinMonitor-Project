@@ -6,45 +6,25 @@ function homeComponent() {
       <div className="container py-4">
         <div className="p-5 mb-4 bg-light rounded-3">
           <div className="container-fluid py-5">
-            <h1 className="display-5 fw-bold">Learning System</h1>
+            <h1 className="display-5 fw-bold">Monitor System</h1>
             <p className="col-md-8 fs-4">
-              This system is using React.js as front-end framework, and Node.js,
-              MongoDB as backend server. This kind of project is called MERN
-              project, which is one of the most popular way to create modern
-              websites.
+              Window
+              監控系統,請先在監看的主機上安裝agent,agent會固定發送截圖到s3並且傳送心跳至nacos，若無心跳則會於頁面告警
             </p>
-            <button className="btn btn-primary btn-lg" type="button">
-              See how it works.
-            </button>
           </div>
         </div>
 
         <div className="row align-items-md-stretch">
           <div className="col-md-6">
             <div className="h-100 p-5 text-white bg-dark rounded-3">
-              <h2>As a student</h2>
-              <p>
-                Students can register in courses they like. This website is for
-                practice purpose only, so please do not provide any personal
-                information, such as credit card numbers.
-              </p>
-              <button className="btn btn-outline-light" type="button">
-                Login or Register Now
-              </button>
+              <h2>Admin 權限</h2>
+              <p>提供操作新增機器及新增用戶功能</p>
             </div>
           </div>
           <div className="col-md-6">
             <div className="h-100 p-5 bg-light border rounded-3">
-              <h2>As an Instructor</h2>
-              <p>
-                You can become an instructor by registering as one, and start
-                making online courses. This website is for practice purpose
-                only, so please do not provide any personal information, such as
-                credit card numbers.
-              </p>
-              <button class="btn btn-outline-secondary" type="button">
-                Login or Register Now
-              </button>
+              <h2>Readonly 權限</h2>
+              <p>僅可觀看監控，不具其他操作權限</p>
             </div>
           </div>
         </div>

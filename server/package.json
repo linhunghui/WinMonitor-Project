@@ -17,6 +17,7 @@
     "joi": "^17.6.4",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.6.6",
+    "nacos": "^2.5.0",
     "nodemon": "^2.0.20",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
